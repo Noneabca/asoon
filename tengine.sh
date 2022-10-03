@@ -65,7 +65,7 @@ events
         multi_accept on;
     }
 stream {
-    include /usr/local/nginx/tcp/*.conf;
+    include /usr/local/nginx/mytcp/*.conf;
 }
 http {
     include       mime.types;
@@ -75,8 +75,8 @@ http {
     keepalive_requests 10000;
     check_shm_size 50m;
     access_log  off;
-    #vmess-ws
-    include /usr/local/nginx/*.conf;
+    #rewrite
+    include /usr/local/nginx/myhttp/*.conf;
 }">/usr/local/nginx/conf/nginx.conf
 		echo "[Unit]
 Description=The nginx HTTP and reverse proxy server
