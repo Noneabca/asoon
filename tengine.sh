@@ -103,9 +103,9 @@ function get_conf() {
 	mkdir /usr/local/nginx/myhttp
 	mkdir /usr/local/nginx/mycert
 	cd /usr/local/nginx/mytcp
-	
+	wget https://raw.githubusercontent.com/Noneabca/csoon/main/mytcp.conf
 	cd /usr/local/nginx/myhttp
-	
+	wget https://raw.githubusercontent.com/Noneabca/asoon/main/rewrite.conf
 }
 
 check_sys
