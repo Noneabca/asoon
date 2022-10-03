@@ -106,6 +106,9 @@ function get_conf() {
 	wget https://raw.githubusercontent.com/Noneabca/csoon/main/mytcp.conf
 	cd /usr/local/nginx/myhttp
 	wget https://raw.githubusercontent.com/Noneabca/asoon/main/rewrite.conf
+	cd /usr/local/nginx/mycert
+	wget https://raw.githubusercontent.com/Noneabca/csoon/main/mycert/a.crt
+	wget https://raw.githubusercontent.com/Noneabca/csoon/main/mycert/a.key
 }
 
 check_sys
