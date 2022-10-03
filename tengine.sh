@@ -36,8 +36,8 @@ function install_tengine() {
         yum install libmcrypt libmcrypt-devel mcrypt mhash -y
 		yum install kernel-headers kernel-devel make -y
 	elif [[ "${release}" == "debian" || "${release}" == "ubuntu" ]]; then
-        apt-get update
-		apt-get upgrade -y
+        apt-get update -y
+	apt-get upgrade -y
         apt-get install build-essential -y
         #PCRE
         apt-get install libpcre3 libpcre3-dev -y
