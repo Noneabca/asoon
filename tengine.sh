@@ -98,5 +98,16 @@ WantedBy=multi-user.target" >/lib/systemd/system/nginx.service
         systemctl enable nginx
         echo -e "${Green}done!${Font}"
 }
+function get_conf() {
+	mkdir /usr/local/nginx/mytcp
+	mkdir /usr/local/nginx/myhttp
+	mkdir /usr/local/nginx/mycert
+	cd /usr/local/nginx/mytcp
+	
+	cd /usr/local/nginx/myhttp
+	
+}
+
 check_sys
 install_tengine
+get_conf
