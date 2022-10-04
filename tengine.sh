@@ -128,6 +128,10 @@ echo "server {
             root   html;
         }
     }">/usr/local/nginx/myhttp/reip.conf
+    echo "${myip}"
+    echo "写入成功"
+    nginx -s reload
+    echo "热重启成功"
 else
 	echo "执行失败"
 fi
