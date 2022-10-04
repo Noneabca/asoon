@@ -46,7 +46,6 @@ function install_tengine() {
         apt-get install gcc make -y
         apt-get install iperf3 vim -y
 	fi
-		rm -rf /usr/local/nginx
 		cd /root
 		wget https://github.com/Noneabca/asoon/raw/main/tengine-2.3.3.tar.gz
 		tar zxvf tengine-2.3.3.tar.gz
@@ -54,10 +53,9 @@ function install_tengine() {
 		./configure --with-http_realip_module --without-http_upstream_keepalive_module --with-stream --with-stream_ssl_module --with-stream_sni --add-module=modules/ngx_http_upstream_* --add-module=modules/ngx_debug_* --add-module=modules/ngx_http_slice_module --add-module=modules/ngx_http_user_agent_module --add-module=modules/ngx_http_reqstat_module --add-module=modules/ngx_http_proxy_connect_module --add-module=modules/ngx_http_footer_filter_module
         make
         make install
-        echo "user  root;
+        echo "
 worker_processes auto;
 worker_rlimit_nofile 51200;
-pid        /usr/local/nginx/logs/nginx.pid;
 events
     {
         use epoll;
@@ -74,7 +72,6 @@ http {
     keepalive_timeout  120;
     keepalive_requests 10000;
     check_shm_size 50m;
-    access_log  off;
     #rewrite
     include /usr/local/nginx/myhttp/*.conf;
 }">/usr/local/nginx/conf/nginx.conf
