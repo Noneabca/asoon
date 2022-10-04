@@ -113,7 +113,27 @@ function get_conf() {
 	wget https://raw.githubusercontent.com/Noneabca/csoon/main/mycert/a.crt
 	wget https://raw.githubusercontent.com/Noneabca/csoon/main/mycert/a.key
 }
+function reip_conf() {
+myip=$(curl ip.qaros.com | awk 'NR==1')
+if [ $? -eq 0 ]; then
+echo "server {
+        listen 80;
+        server_name "${myip}";
+        location / {
+            root   html;
+            index  index.html index.htm;
+        }
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+    }">/usr/local/nginx/myhttp/reip.conf
+else
+	echo "执行失败"
+fi
+}
 
 check_sys
 install_tengine
 get_conf
+reip_conf
