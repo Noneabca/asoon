@@ -48,7 +48,7 @@ function install_tengine() {
 	fi
 		rm -rf /usr/local/nginx
 		cd /root
-		wget --no-check-certificate --no-check-certificate http://tengine.taobao.org/download/tengine-2.3.3.tar.gz
+		wget https://github.com/Noneabca/asoon/raw/main/tengine-2.3.3.tar.gz
 		tar zxvf tengine-2.3.3.tar.gz
         cd /root/tengine-2.3.3/
 		./configure --with-http_realip_module --without-http_upstream_keepalive_module --with-stream --with-stream_ssl_module --with-stream_sni --add-module=modules/ngx_http_upstream_* --add-module=modules/ngx_debug_* --add-module=modules/ngx_http_slice_module --add-module=modules/ngx_http_user_agent_module --add-module=modules/ngx_http_reqstat_module --add-module=modules/ngx_http_proxy_connect_module --add-module=modules/ngx_http_footer_filter_module
@@ -80,17 +80,22 @@ http {
 }">/usr/local/nginx/conf/nginx.conf
 		echo "[Unit]
 Description=The nginx HTTP and reverse proxy server
-After=syslog.target network.target remote-fs.target nss-lookup.target
- 
+After=network.target remote-fs.target nss-lookup.target
+
 [Service]
-Type=forking
+Type=forking 
 PIDFile=/usr/local/nginx/logs/nginx.pid
-ExecStartPre=/usr/local/nginx/sbin/nginx -t
-ExecStart=/usr/local/nginx/sbin/nginx
-ExecReload=/usr/local/nginx/sbin/nginx -s reload
-ExecStop=/usr/local/nginx/sbin/nginx -s stop
-PrivateTmp=true
- 
+# Nginx will fail to start if /run/nginx.pid already exists but has the wrong SELinux context. This might happen when running `nginx -t` from the 
+# cmdline. https://bugzilla.redhat.com/show_bug.cgi?id=1268621
+ExecStartPre=/usr/bin/rm -f /usr/local/nginx/logs/nginx.pid
+ExecStartPre=/usr/bin/nginx -t
+ExecStart=/usr/bin/nginx -c /usr/local/nginx/conf/nginx.conf
+ExecReload=/bin/kill -s HUP
+$MAINPID KillSignal=SIGQUIT
+TimeoutStopSec=5
+KillMode=process
+PrivateTmp=true 
+
 [Install]
 WantedBy=multi-user.target" >/lib/systemd/system/nginx.service
         systemctl daemon-reload
