@@ -54,7 +54,7 @@ function install_tengine() {
         make
         make install
 	ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
-        echo "
+        echo "user  root;
 worker_processes auto;
 worker_rlimit_nofile 51200;
 events
