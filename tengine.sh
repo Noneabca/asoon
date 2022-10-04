@@ -53,7 +53,7 @@ function install_tengine() {
 		./configure --with-http_realip_module --without-http_upstream_keepalive_module --with-stream --with-stream_ssl_module --with-stream_sni --add-module=modules/ngx_http_upstream_* --add-module=modules/ngx_debug_* --add-module=modules/ngx_http_slice_module --add-module=modules/ngx_http_user_agent_module --add-module=modules/ngx_http_reqstat_module --add-module=modules/ngx_http_proxy_connect_module --add-module=modules/ngx_http_footer_filter_module
         make
         make install
-	ln -s /web/tengine/sbin/nginx /usr/bin/nginx
+	ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
         echo "
 worker_processes auto;
 worker_rlimit_nofile 51200;
