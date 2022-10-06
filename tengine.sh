@@ -115,7 +115,7 @@ function get_conf() {
 }
 function reip_conf() {
 myip=$(curl ip.qaros.com | awk 'NR==1')
-if [ $? -eq 0 ]; then
+if [ ! -z ${myip} ]; then
 echo "server {
         listen 80;
         server_name "${myip}";
