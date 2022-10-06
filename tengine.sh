@@ -136,8 +136,14 @@ else
 	echo "执行失败"
 fi
 }
+function set_html() {
+    cd /usr/local/nginx/html
+    rm index.html
+    wget https://raw.githubusercontent.com/Noneabca/asoon/main/index.html
+}
 
 check_sys
 install_tengine
 get_conf
 reip_conf
+set_html
