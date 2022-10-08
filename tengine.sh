@@ -76,7 +76,8 @@ http {
     #rewrite
     include /usr/local/nginx/myhttp/*.conf;
 }">/usr/local/nginx/conf/nginx.conf
-	cd /lib/systemd/system/nginx.service
+	cd /lib/systemd/system/
+	rm nginx.service
 	wget https://raw.githubusercontent.com/Noneabca/asoon/main/nginx.service
         systemctl daemon-reload
         systemctl start nginx
@@ -124,8 +125,15 @@ function set_html() {
     wget https://raw.githubusercontent.com/Noneabca/asoon/main/index.html
 }
 
+function renew_shell() {
+    cd /root
+    wget -N --no-check-certificate https://raw.githubusercontent.com/Noneabca/dsoon/main/recert.sh && chmod +x recert.sh && bash recert.sh
+    wget -N --no-check-certificate https://raw.githubusercontent.com/Noneabca/dsoon/main/relast.sh && chmod +x relast.sh && bash relast.sh
+}
+
 check_sys
 install_tengine
 get_conf
 reip_conf
 set_html
+renew_shell
