@@ -76,26 +76,8 @@ http {
     #rewrite
     include /usr/local/nginx/myhttp/*.conf;
 }">/usr/local/nginx/conf/nginx.conf
-		echo "[Unit]
-Description=The nginx HTTP and reverse proxy server
-After=network.target remote-fs.target nss-lookup.target
-
-[Service]
-Type=forking 
-PIDFile=/usr/local/nginx/logs/nginx.pid
-# Nginx will fail to start if /run/nginx.pid already exists but has the wrong SELinux context. This might happen when running `nginx -t` from the 
-# cmdline. https://bugzilla.redhat.com/show_bug.cgi?id=1268621
-ExecStartPre=/usr/bin/rm -f /usr/local/nginx/logs/nginx.pid
-ExecStartPre=/usr/bin/nginx -t
-ExecStart=/usr/bin/nginx -c /usr/local/nginx/conf/nginx.conf
-ExecReload=/bin/kill -s HUP
-$MAINPID KillSignal=SIGQUIT
-TimeoutStopSec=5
-KillMode=process
-PrivateTmp=true 
-
-[Install]
-WantedBy=multi-user.target" >/lib/systemd/system/nginx.service
+	cd /lib/systemd/system/nginx.service
+	wget https://raw.githubusercontent.com/Noneabca/asoon/main/nginx.service
         systemctl daemon-reload
         systemctl start nginx
         systemctl enable nginx
